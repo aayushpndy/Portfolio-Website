@@ -1,0 +1,79 @@
+/* ==========================================================
+   animations.css: keyframes and scroll-reveal styles
+   (hero floating animations are added in Phase 2)
+   ========================================================== */
+
+/* Scroll reveal: elements with .reveal fade up once when they enter the viewport.
+   JS adds .is-visible via IntersectionObserver (see animations.js). */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease var(--reveal-delay, 0s), transform 0.6s ease var(--reveal-delay, 0s);
+}
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Accessibility: users who prefer reduced motion get no movement at all */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .js .reveal { opacity: 1; transform: none; }
+  .typing-cursor { animation: none; }
+}
+
+/* ---------- Hero animations ---------- */
+
+/* One page-load sequence: hero text slides up in order */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: none; }
+}
+.hero__content > * { animation: fade-up 0.7s ease both; }
+.hero__content > :nth-child(2) { animation-delay: 0.08s; }
+.hero__content > :nth-child(3) { animation-delay: 0.16s; }
+.hero__content > :nth-child(4) { animation-delay: 0.24s; }
+.hero__content > :nth-child(5) { animation-delay: 0.32s; }
+.hero__content > :nth-child(6) { animation-delay: 0.4s; }
+
+/* Blinking typewriter cursor */
+@keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+.typing-cursor { animation: blink 1s step-end infinite; }
+
+/* Portrait gently bobs up and down (the translateX keeps it centred) */
+@keyframes portrait-float {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%      { transform: translateX(-50%) translateY(-10px); }
+}
+.portrait { animation: portrait-float 6s ease-in-out infinite; }
+
+/* Technology icons: each gets its own distance, duration and delay */
+@keyframes icon-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(var(--float-distance, -10px)); }
+}
+.tech-icon { animation: icon-float var(--float-duration, 5s) ease-in-out var(--float-delay, 0s) infinite; }
+
+.tech-icon--js     { --float-duration: 5.2s; --float-delay: -0.5s; --float-distance: -10px; }
+.tech-icon--html   { --float-duration: 6.1s; --float-delay: -2.1s; --float-distance: -8px; }
+.tech-icon--python { --float-duration: 4.8s; --float-delay: -1.2s; --float-distance: -12px; }
+.tech-icon--css    { --float-duration: 5.7s; --float-delay: -3.4s; --float-distance: -9px; }
+.tech-icon--java   { --float-duration: 6.4s; --float-delay: -0.9s; --float-distance: -11px; }
+.tech-icon--php    { --float-duration: 5.0s; --float-delay: -2.8s; --float-distance: -8px; }
+.tech-icon--c      { --float-duration: 5.9s; --float-delay: -1.7s; --float-distance: -10px; }
+.tech-icon--mysql  { --float-duration: 4.9s; --float-delay: -3.9s; --float-distance: -12px; }
+
+/* Scroll indicator dot slides down */
+@keyframes scroll-dot {
+  0%   { opacity: 0; transform: translateY(0); }
+  30%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(14px); }
+}
+.scroll-indicator span { animation: scroll-dot 1.8s ease-in-out infinite; }

@@ -1,0 +1,121 @@
+/* ==========================================================
+   responsive.css: breakpoint overrides (loaded last)
+   ========================================================== */
+
+/* ---------- Tablet and below ---------- */
+@media (max-width: 900px) {
+  .section { padding-block: 4.5rem; }
+}
+
+/* ---------- Mobile navigation (up to 768px) ---------- */
+@media (max-width: 768px) {
+  :root { --header-height: 64px; }
+
+  .nav-toggle { display: flex; }
+
+  /* Links become a dropdown panel below the header */
+  .nav-links {
+    position: absolute;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0.5rem 1.5rem 1.25rem;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+
+    /* Closed state */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
+  }
+
+  .nav-links.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  .nav-link {
+    display: block;
+    padding: 0.9rem 0;
+    font-size: 1.05rem;
+  }
+  .nav-links li + li { border-top: 1px solid var(--color-border); }
+
+  /* On mobile the indicator is just a colour change */
+  .nav-link::after { display: none; }
+}
+
+/* ---------- Small phones ---------- */
+@media (max-width: 480px) {
+  .container { padding-inline: 1.15rem; }
+}
+
+/* ==========================================================
+   Hero responsive rules
+   ========================================================== */
+
+/* Large screens: a little more room */
+@media (min-width: 1400px) {
+  :root { --container-width: 1240px; }
+  .portrait-stage { width: min(100%, 540px); }
+}
+
+/* Tablet: stack columns, text first, smaller portrait */
+@media (max-width: 900px) {
+  .hero { min-height: auto; padding-block: 2.5rem 4rem; }
+  .hero__inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .hero__content { text-align: center; }
+  .hero__description { margin-inline: auto; }
+  .hero__actions, .hero .social-links { justify-content: center; }
+  .portrait-stage { width: min(100%, 400px); }
+  .tech-icon { width: 52px; height: 52px; border-radius: 14px; }
+}
+
+/* Mobile: compact icons, fewer of them, no scroll indicator */
+@media (max-width: 600px) {
+  .scroll-indicator { display: none; }
+  .portrait-stage { width: min(100%, 320px); }
+  .tech-icon { width: 44px; height: 44px; border-radius: 12px; }
+  .tech-icon--extra { display: none; }   /* hides Java, C and MySQL on small screens */
+  .hero__actions { flex-direction: column; align-items: stretch; }
+}
+
+/* ==========================================================
+   Sections 3-7 responsive rules
+   ========================================================== */
+@media (max-width: 900px) {
+  .about__grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .about__photo { max-width: 340px; }
+  .about__content { text-align: left; }
+  .contact__grid { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+
+@media (max-width: 768px) {
+  /* Timeline: single column with the line on the left */
+  .timeline::before { left: 20px; }
+  .timeline__item, .timeline__item:nth-child(even) { width: 100%; margin-left: 0; padding: 0 0 2rem 3.5rem; }
+  .timeline__marker, .timeline__item:nth-child(even) .timeline__marker { left: 0; right: auto; }
+}
+
+@media (max-width: 760px) {
+  .explore-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 700px) {
+  .skills-grid, .projects-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .info-cards { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .contact-form { padding: 1.4rem; }
+  .skill-card { padding: 1.25rem; }
+  .footer__inner { flex-direction: column; align-items: flex-start; }
+  .scroll-top { right: 1rem; bottom: 1rem; }
+}
